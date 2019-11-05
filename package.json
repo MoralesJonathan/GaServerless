@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MoralesJonathan/GaServerless/issues"
   },
-  "homepage": "https://github.com/MoralesJonathan/GaServerless#readme"
+  "homepage": "https://github.com/MoralesJonathan/GaServerless#readme",
+  "devDependencies": {
+    "serverless-offline": "^5.12.0"
+  }
 }

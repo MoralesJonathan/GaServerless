@@ -1,0 +1,14 @@
+service: gaserverless
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+plugins:
+  - serverless-offline
+  
+functions:
+  api:
+    handler: handler.query
+    events:
+      - http: GET /api/query

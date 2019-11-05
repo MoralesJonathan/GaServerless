@@ -19,3 +19,6 @@ node_modules/
 
 # Google analyitics auth config
 auth.json
+
+# Serverless directories
+.serverless
