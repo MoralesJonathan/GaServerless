@@ -19,5 +19,8 @@
   "homepage": "https://github.com/MoralesJonathan/GaServerless#readme",
   "devDependencies": {
     "serverless-offline": "^5.12.0"
+  },
+  "dependencies": {
+    "googleapis": "^44.0.0"
   }
 }
