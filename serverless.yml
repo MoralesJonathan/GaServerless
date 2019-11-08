@@ -1,18 +1,33 @@
-service: jonathan-gaQueryHandler
+service: jonathan-ga-api
 
 provider:
   name: aws
   region: us-east-1
+  stage: dev
   runtime: nodejs10.x
+  versionFunctions: true
+  environment:
+    GAPI_CLIENT_EMAIL: ${file(./auth.json):client_email}
+    GAPI_PRIVATE_KEY: ${file(./auth.json):private_key}
 
 plugins:
   - serverless-offline
+  - serverless-aws-alias
 
 functions:
-  api:
+  query:
     handler: handler.query
     events:
       - http: GET /api/query
-    environment:
-      GAPI_CLIENT_EMAIL: ${file(./auth.json):client_email}
-      GAPI_PRIVATE_KEY: ${file(./auth.json):private_key}
+      - cors: true 
+  accountSummaries:
+    handler: handler.accountSummaries
+    events:
+      - http: GET /api/accountsummaries
+      - cors: true 
+  activeUsers:
+    handler: handler.activeUsers
+    events:
+      - http: GET /api/activeusers
+      - cors: true 
+      

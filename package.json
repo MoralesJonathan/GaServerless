@@ -21,6 +21,7 @@
     "serverless-offline": "^5.12.0"
   },
   "dependencies": {
-    "googleapis": "^44.0.0"
+    "googleapis": "^44.0.0",
+    "serverless-aws-alias": "^1.8.0"
   }
 }
