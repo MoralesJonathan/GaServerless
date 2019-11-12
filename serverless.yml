@@ -4,6 +4,7 @@ provider:
   name: aws
   region: us-east-1
   stage: dev
+  timeout: 20
   runtime: nodejs10.x
   versionFunctions: true
   environment:

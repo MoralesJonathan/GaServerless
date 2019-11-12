@@ -25,12 +25,13 @@ module.exports = {
         },
         body: 'Query String Parameters missing'
       }
-    } else {
-      const { _src, ...queryParams } = event.queryStringParameters;
+    } 
+
+    const { _src, ...queryParams } = event.queryStringParameters;
     try {
-      const rows = await new Promise((resolve, reject) => {
-        jwt.authorize(jwtError => {
-          if (!jwtError) {
+      const rows = await new Promise( async(resolve, reject) => {
+      const token = await jwt.authorize();
+        if(token){
             google.analytics('v3').data.ga.get(
               {
                 'auth': jwt,
@@ -65,21 +66,20 @@ module.exports = {
               body: JSON.stringify(jwtError)
             });
           }
-        })
       });
       return rows;
     } catch (rejectionError) {
-      console.log({ rejectionError })
+      console.log("Final rejection error:")
+      console.log(rejectionError)
       return rejectionError;
-    }
     }
   },
   accountSummaries: async event => {
     const allowedOrigin = `https://openair${getEnv(event.headers.origin || event.headers.Origin)}.everymundo.com`;
     try {
-      const accounts = await new Promise((resolve, reject) => {
-        jwt.authorize(jwtError => {
-          if (!jwtError) {
+      const accounts = await new Promise( async (resolve, reject) => {
+        const token = await jwt.authorize()
+        if(token){
             google.analytics('v3').management.accountSummaries.list(
               {
                 'auth': jwt
@@ -113,7 +113,6 @@ module.exports = {
             });
           }
         })
-      });
       return accounts;
     } catch (rejectionError) {
       console.log({ rejectionError })
@@ -123,9 +122,9 @@ module.exports = {
   activeUsers: async event => {
     const allowedOrigin = `https://openair${getEnv(event.headers.origin || event.headers.Origin)}.everymundo.com`;
     try {
-      const accounts = await new Promise((resolve, reject) => {
-        jwt.authorize(jwtError => {
-          if (!jwtError) {
+      const accounts = await new Promise( async (resolve, reject) => {
+        const token = await jwt.authorize()
+        if(token){
             google.analytics('v3').data.realtime.get({ 'auth': jwt, ids: 'ga:180931864', metrics: 'rt:activeUsers' })
               .then(response => {
                 const result = response.data;
@@ -158,7 +157,6 @@ module.exports = {
             });
           }
         })
-      });
       return accounts;
     } catch (rejectionError) {
       console.log({ rejectionError })
